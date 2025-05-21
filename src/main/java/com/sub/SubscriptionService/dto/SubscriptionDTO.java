@@ -1,25 +1,19 @@
-package com.sub.SubscriptionService.domain;
+package com.sub.SubscriptionService.dto;
 
-import jakarta.persistence.*;
+import jakarta.annotation.Nonnull;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-@Entity
-@Table(name = "subscriptions")
-public class Subscription implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
+public class SubscriptionDTO implements Serializable {
+    @Nonnull
     private Long id;
 
-
-    @Column(name = "service_name")
+    @Nonnull
     private String serviceName;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Nonnull
+    private UserDTO user;
 
     public Long getId() {
         return id;
@@ -37,11 +31,11 @@ public class Subscription implements Serializable {
         this.serviceName = serviceName;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
@@ -50,20 +44,24 @@ public class Subscription implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Subscription)) {
+        if (!(o instanceof SubscriptionDTO)) {
             return false;
         }
-        return id != null && id.equals(((Subscription) o).id);
+
+        if (this.id == null) {
+            return false;
+        }
+        return Objects.equals(this.id, ((SubscriptionDTO) o).id);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(this.id);
     }
 
     @Override
     public String toString() {
-        return "Subscription{" +
+        return "SubscriptionDTO{" +
                 "id=" + getId() +
                 ", serviceName='" + getServiceName() + "'" +
                 ", user=" + getUser() +
