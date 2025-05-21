@@ -6,7 +6,6 @@ import java.util.Objects;
 import jakarta.annotation.Nonnull;
 
 public class UserDTO implements Serializable {
-    @Nonnull
     private Long id;
 
     @Nonnull

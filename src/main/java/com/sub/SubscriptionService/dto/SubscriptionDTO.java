@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class SubscriptionDTO implements Serializable {
-    @Nonnull
     private Long id;
 
     @Nonnull
