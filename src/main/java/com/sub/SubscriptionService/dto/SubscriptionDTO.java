@@ -1,6 +1,6 @@
 package com.sub.SubscriptionService.dto;
 
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,11 +8,8 @@ import java.util.Objects;
 public class SubscriptionDTO implements Serializable {
     private Long id;
 
-    @Nonnull
+    @NotNull(message = "Service name cannot be null")
     private String serviceName;
-
-    @Nonnull
-    private UserDTO user;
 
     public Long getId() {
         return id;
@@ -28,14 +25,6 @@ public class SubscriptionDTO implements Serializable {
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
     }
 
     @Override
@@ -63,7 +52,6 @@ public class SubscriptionDTO implements Serializable {
         return "SubscriptionDTO{" +
                 "id=" + getId() +
                 ", serviceName='" + getServiceName() + "'" +
-                ", user=" + getUser() +
                 "}";
     }
 }

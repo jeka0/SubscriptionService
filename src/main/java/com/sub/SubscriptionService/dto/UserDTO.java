@@ -1,17 +1,23 @@
 package com.sub.SubscriptionService.dto;
 
-
 import java.io.Serializable;
 import java.util.Objects;
-import jakarta.annotation.Nonnull;
+
+import com.sub.SubscriptionService.validation.CreateGroup;
+import com.sub.SubscriptionService.validation.UpdateGroup;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 
 public class UserDTO implements Serializable {
+    @Null(message = "Id must be null", groups = CreateGroup.class)
     private Long id;
 
-    @Nonnull
+    @NotNull(message = "Username cannot be null", groups = CreateGroup.class)
     private String name;
 
-    @Nonnull
+    @NotNull(message = "Email cannot be null", groups = CreateGroup.class)
+    @Email(message = "Invalid email format", groups = {CreateGroup.class, UpdateGroup.class})
     private String email;
 
     public Long getId() {

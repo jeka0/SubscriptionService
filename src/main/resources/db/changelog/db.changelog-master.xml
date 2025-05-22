@@ -7,4 +7,5 @@
 
     <include file="db/changelog/changeset-create-users-table.xml"/>
     <include file="db/changelog/changeset-create-subscriptions-table.xml"/>
+    <include file="db/changelog/changeset-create-users_subscriptions-table.xml"/>
 </databaseChangeLog>

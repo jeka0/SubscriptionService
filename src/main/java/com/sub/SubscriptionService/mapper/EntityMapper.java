@@ -7,6 +7,8 @@ public interface EntityMapper<D, E> {
 
     D toDto(E entity);
 
+    E partialUpdate(E entity, D dto);
+
     List<E> toEntity(List<D> dtoList);
 
     List<D> toDto(List<E> entityList);

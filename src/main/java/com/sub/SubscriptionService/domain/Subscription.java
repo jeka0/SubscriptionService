@@ -3,22 +3,21 @@ package com.sub.SubscriptionService.domain;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "subscriptions")
 public class Subscription implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-
-    @Column(name = "service_name")
+    @Column(name = "service_name", nullable = false)
     private String serviceName;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @ManyToMany(mappedBy = "subscriptions")
+    private Set<User> users = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -36,22 +35,18 @@ public class Subscription implements Serializable {
         this.serviceName = serviceName;
     }
 
-    public User getUser() {
-        return user;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Subscription)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Subscription)) return false;
         return id != null && id.equals(((Subscription) o).id);
     }
 
@@ -63,9 +58,8 @@ public class Subscription implements Serializable {
     @Override
     public String toString() {
         return "Subscription{" +
-                "id=" + getId() +
-                ", serviceName='" + getServiceName() + "'" +
-                ", user=" + getUser() +
-                "}";
+                "id=" + id +
+                ", serviceName='" + serviceName + '\'' +
+                '}';
     }
 }

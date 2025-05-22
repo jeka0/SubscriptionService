@@ -26,6 +26,14 @@ public class UserMapperImpl implements UserMapper {
         return user;
     }
 
+    public User partialUpdate(User entity, UserDTO dto){
+        User user = new User();
+        user.setId(entity.getId());
+        user.setName(dto.getName() != null ? dto.getName() : entity.getName());
+        user.setEmail(dto.getEmail() != null ? dto.getEmail() : entity.getEmail());
+        return user;
+    }
+
     public List<User> toEntity(List<UserDTO> dtoList) {
         return dtoList
                 .stream()

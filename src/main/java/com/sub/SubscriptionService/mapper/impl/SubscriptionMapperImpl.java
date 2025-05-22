@@ -21,7 +21,6 @@ public class SubscriptionMapperImpl implements SubscriptionMapper {
         SubscriptionDTO subscriptionDTO = new SubscriptionDTO();
         subscriptionDTO.setId(entity.getId());
         subscriptionDTO.setServiceName(entity.getServiceName());
-        subscriptionDTO.setUser(userMapper.toDto(entity.getUser()));
         return subscriptionDTO;
     }
 
@@ -29,7 +28,13 @@ public class SubscriptionMapperImpl implements SubscriptionMapper {
         Subscription subscription = new Subscription();
         subscription.setId(dto.getId());
         subscription.setServiceName(dto.getServiceName());
-        subscription.setUser(userMapper.toEntity(dto.getUser()));
+        return subscription;
+    }
+
+    public Subscription partialUpdate(Subscription entity, SubscriptionDTO dto){
+        Subscription subscription = new Subscription();
+        subscription.setId(entity.getId());
+        subscription.setServiceName(dto.getServiceName() != null ? dto.getServiceName() : entity.getServiceName());
         return subscription;
     }
 
