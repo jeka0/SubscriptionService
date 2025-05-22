@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgresql:
-    image: postgres:14.5
+    image: postgres:15
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=
