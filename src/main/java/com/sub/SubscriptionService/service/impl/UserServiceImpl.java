@@ -44,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
     public UserDTO create(UserDTO userDTO) {
         log.info("Creating user: {}", userDTO);
+        if (userRepository.existsByEmail(userDTO.getEmail())){
+            throw new IllegalArgumentException("Email already exists");
+        }
         return userMapper.toDto(userRepository.save(userMapper.toEntity(userDTO)));
     }
 
@@ -56,6 +59,10 @@ public class UserServiceImpl implements UserService {
         log.info("Updating user: {}", userDTO);
 
         User existingUser = getUserById(userDTO.getId());
+
+        if (!existingUser.getEmail().equals(userDTO.getEmail()) && userRepository.existsByEmail(userDTO.getEmail())){
+            throw new IllegalArgumentException("Email already exists");
+        }
 
         User newUser = userMapper.partialUpdate(existingUser, userDTO);
 
